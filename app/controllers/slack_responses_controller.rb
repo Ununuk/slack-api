@@ -1,5 +1,5 @@
 class SlackResponsesController < ApplicationController
-
+  require "#{Rails.root}/lib/slack/responder.rb"
   skip_before_filter :verify_authenticity_token
   before_filter :verify_slack_token
 
@@ -13,7 +13,7 @@ class SlackResponsesController < ApplicationController
     if params[:command].present?
       render text: responder.response.to_s
     else
-      render text: responder.response.to_s
+      render json: { text: responder.response.to_s }
     end
   end
 
