@@ -13,7 +13,7 @@ class SlackResponsesController < ApplicationController
     if params[:command].present?
       render text: responder.response.to_s
     else
-      render json: { text: responder.response.to_s }
+      render text: responder.response.to_s
     end
   end
 
