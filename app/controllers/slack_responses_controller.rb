@@ -4,15 +4,17 @@ class SlackResponsesController < ApplicationController
   before_filter :verify_slack_token
 
   def create
-    #render nothing: true, status: :ok and return unless responder.respond?
-
+    render nothing: true, status: :ok and return unless responder.respond?
+  
     # Respond differently to Slash Command vs Webhook POSTs
     # See `Responding` sections above for the require difference.
-    # if params[:command].present?
-    #   render text: responder.response.to_s
-    # else
-    #   render json: { text: responder.response.to_s }
-    # end
+    puts JSON.parse(responder.response.to_s)
+    
+    if params[:command].present?
+      render text: responder.response.to_s
+    else
+      render json: { text: responder.response.to_s }
+    end
   end
 
   private
